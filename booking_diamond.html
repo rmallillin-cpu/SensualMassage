@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sensual Massage Diamond | Booking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css?v=20260414r">
+</head>
+<body data-selected-branch="Sensual Massage Diamond" data-selected-branch-slug="diamond">
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index_diamond.html">
+        <span class="brand-logo-frame">
+          <img class="brand-logo" src="assets/Diamond.png" alt="Sensual Massage Diamond logo">
+        </span>
+        <span class="brand-copy">
+          <strong class="notranslate" translate="no" data-business-name>Sensual Massage Diamond</strong>
+          <small class="notranslate" translate="no">Massage Lounge</small>
+        </span>
+      </a>
+      <div class="nav-actions">
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="index_diamond.html">Home</a>
+          <a href="services_diamond.html">Services</a>
+          <a href="therapist_diamond.html">Therapists</a>
+          <a href="rates_diamond.html">Rates</a>
+          <a class="active" href="booking_diamond.html">Booking</a>
+          <a href="contact_diamond.html">Contact Us</a>
+        </nav>
+        <div class="translate-slot" data-google-translate aria-label="Translate website"></div>
+      </div>
+    </div>
+    <div class="container header-branch-strip" data-header-branch-phones></div>
+  </header>
+
+  <main class="page-shell">
+    <section class="page-hero">
+      <div class="container narrow">
+        <p class="eyebrow">Booking</p>
+        <h1>Book your preferred session and let us confirm the best available slot.</h1>
+        <p class="lead compact">
+          Choose your branch, service, date, and therapist preference, and our team will confirm your reservation quickly.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container booking-layout">
+        <article class="contact-card booking-info-card">
+          <p class="contact-label">How It Works</p>
+          <h2>Simple reservation flow</h2>
+          <p>Choose your service, how many female or male therapists you want, and your preferred therapists.</p>
+          <p>Your estimate updates automatically based on your selected service rates and taxi fare.</p>
+          <p data-setting="booking_note">If not, the page will guide the customer to WhatsApp so you can confirm manually.</p>
+          <div class="booking-estimate-card" data-booking-estimate>
+            <p class="contact-label">Cost Estimate</p>
+            <div class="booking-estimate-row">
+              <span>Service cost</span>
+              <strong data-estimate-service>PHP 0</strong>
+            </div>
+            <div class="booking-estimate-row">
+              <span>Taxi fare</span>
+              <strong data-estimate-taxi>PHP 0</strong>
+            </div>
+            <div class="booking-estimate-row total">
+              <span>Total estimate</span>
+              <strong data-estimate-total>PHP 0</strong>
+            </div>
+            <div class="booking-estimate-row usd">
+              <span>Total estimate in USD</span>
+              <strong data-estimate-total-usd>USD 0.00</strong>
+            </div>
+            <p class="booking-estimate-note">Final amount may still depend on branch, schedule, and therapist availability.</p>
+          </div>
+          <a class="button secondary" data-whatsapp-link href="https://wa.me/639000000000" target="_blank" rel="noreferrer">
+            Message on WhatsApp
+          </a>
+        </article>
+
+        <form class="booking-card booking-form" data-booking-form>
+          <label class="booking-field booking-field-full">
+            Full Name
+            <input type="text" name="name" placeholder="Your name" required>
+          </label>
+          <label class="booking-field">
+            Branch
+            <select name="branch" data-booking-branch-options required>
+              <option value="">Select a branch</option>
+            </select>
+          </label>
+          <label class="booking-field">
+            Mobile Number
+            <input type="tel" name="phone" placeholder="09XX XXX XXXX" required>
+          </label>
+          <label class="booking-field booking-field-full">
+            Preferred Service
+            <select name="service" data-booking-service-options required>
+              <option value="">Select a service</option>
+            </select>
+          </label>
+          <label class="booking-field">
+            Female Therapists
+            <select name="female_therapist_count" data-booking-female-count required>
+              <option value="0">0 therapist</option>
+              <option value="1">1 therapist</option>
+              <option value="2">2 therapists</option>
+              <option value="3">3 therapists</option>
+              <option value="4">4 therapists</option>
+            </select>
+          </label>
+          <label class="booking-field">
+            Male Therapists
+            <select name="male_therapist_count" data-booking-male-count required>
+              <option value="0">0 therapist</option>
+              <option value="1">1 therapist</option>
+              <option value="2">2 therapists</option>
+              <option value="3">3 therapists</option>
+              <option value="4">4 therapists</option>
+            </select>
+          </label>
+          <label class="booking-field">
+            Preferred Date
+            <input type="date" name="date" required>
+          </label>
+          <label class="booking-field">
+            Preferred Time
+            <input type="time" name="time" required>
+          </label>
+          <div class="booking-field booking-field-full booking-therapist-group">
+            <span>Preferred Female Therapists</span>
+            <div class="booking-therapist-list" data-booking-female-therapist-list></div>
+          </div>
+          <div class="booking-field booking-field-full booking-therapist-group">
+            <span>Preferred Male Therapists</span>
+            <div class="booking-therapist-list" data-booking-male-therapist-list></div>
+          </div>
+          <label class="booking-field">
+            Taxi Fare
+            <input type="text" data-booking-taxi-fare-display value="PHP 0" readonly>
+            <small>Taxi fare starts at PHP 500 and may increase depending on your location.</small>
+          </label>
+          <label class="booking-field">
+            Estimated Service Cost
+            <input type="text" data-booking-service-estimate-display value="PHP 0" readonly>
+          </label>
+          <label class="booking-field booking-field-full">
+            Total Estimate
+            <input type="text" data-booking-total-estimate-display value="PHP 0" readonly>
+          </label>
+          <label class="booking-field booking-field-full">
+            Total Estimate in USD
+            <input type="text" data-booking-total-estimate-usd-display value="USD 0.00" readonly>
+          </label>
+          <input type="hidden" name="female_therapists" data-booking-female-therapists value="">
+          <input type="hidden" name="male_therapists" data-booking-male-therapists value="">
+          <input type="hidden" name="estimated_service_cost" data-booking-estimated-service-cost value="0">
+          <input type="hidden" name="taxi_fare" data-booking-taxi-fare value="0">
+          <input type="hidden" name="total_estimate" data-booking-total-estimate value="0">
+          <input type="hidden" name="agreement" data-booking-agreement value="No">
+          <div class="booking-field booking-field-full agreement-card">
+            <p class="contact-label">Terms And Conditions</p>
+            <div class="agreement-copy">
+              <p>We are not liable for any agreements made outside the scope of our services between the client and our attendants such as photoshoots, modeling gigs, or other unrelated engagements. Our responsibility is strictly limited to our standard service offerings such as whole body massage and sensual massage. We do not negotiate, arrange, or participate in any requests beyond these services.</p>
+              <p>We emphasize that we are a professional massage service group, not a prostitution establishment. All services are delivered with professionalism and respect. Our attendants are certified and trained massage practitioners. Any arrangement beyond our offered services is solely a mutual agreement between the client and the attendant, and proper procedures are highly advised.</p>
+              <p>Any form of maltreatment or abuse toward our attendants will result in the immediate termination of the service. Physical abuse or any criminal act will be reported to the proper authorities for investigation. Our management strictly does not tolerate such behavior. Our attendants are trained to provide polite and friendly service, and we expect all clients to uphold respect at all times, as mutual respect ensures a positive experience for everyone.</p>
+              <p>Our services are primarily available within hotels and condominiums covered in our service areas. Exceptions may be granted to regular or frequent clients who have established trust, allowing attendants to visit private residences. For provincial, out-of-town, or international requests, a photocopy of valid identification and a signed transparency agreement are required for security purposes for both parties.</p>
+              <p>We strictly oppose human trafficking and do not employ minors. All of our attendants, both male and female, are of legal age 21 years old and above. They are independent freelance professionals who are well-mannered, properly trained, and hold relevant health and massage certifications, supported by years of experience. We do not force or pressure our attendants into any activity against their will. Each attendant has the full right to accept or decline any request.</p>
+              <p>Our group's vision is to support our members in achieving a better quality of life through sustainable work opportunities, while also helping clients reduce stress and improve overall well-being. We believe that therapeutic massage plays an important role in enhancing both physical and mental health in today's society.</p>
+            </div>
+            <label class="agreement-check">
+              <input type="checkbox" data-booking-agreement-check>
+              <span>I have read and agree to the terms and conditions.</span>
+            </label>
+          </div>
+          <label class="booking-field booking-field-full">
+            Notes
+            <textarea name="notes" rows="4" placeholder="Add requests or questions"></textarea>
+          </label>
+          <button class="button primary full" type="submit">Submit Booking</button>
+          <p class="form-status" data-form-status aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <div>
+        <p class="notranslate" translate="no" data-business-name>Sensual Massage Diamond</p>
+        <div class="social-links" data-social-links></div>
+      </div>
+      <div class="footer-links">
+        <a href="index_diamond.html">Home</a>
+        <a href="services_diamond.html">Services</a>
+        <a href="contact_diamond.html">Contact Us</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="config.js?v=20260414r"></script>
+  <script src="script.js?v=20260414r"></script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sensual Massage Elite | Therapist Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="styles.css?v=20260414r">
+</head>
+<body data-selected-branch="Sensual Massage Elite" data-selected-branch-slug="elite">
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index_elite.html">
+        <span class="brand-logo-frame">
+          <img class="brand-logo" src="assets/Elite.png" alt="Sensual Massage Elite logo">
+        </span>
+        <span class="brand-copy">
+          <strong class="notranslate" translate="no" data-business-name>Sensual Massage Elite</strong>
+          <small class="notranslate" translate="no">Massage Lounge</small>
+        </span>
+      </a>
+      <div class="nav-actions">
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="index_elite.html">Home</a>
+          <a href="services_elite.html">Services</a>
+          <a class="active" href="therapist_elite.html">Therapists</a>
+          <a href="rates_elite.html">Rates</a>
+          <a href="booking_elite.html">Booking</a>
+          <a href="contact_elite.html">Contact Us</a>
+        </nav>
+        <div class="translate-slot" data-google-translate aria-label="Translate website"></div>
+      </div>
+    </div>
+    <div class="container header-branch-strip" data-header-branch-phones></div>
+  </header>
+
+  <main class="page-shell" data-therapist-detail-page>
+    <section class="page-hero">
+      <div class="container narrow">
+        <p class="eyebrow">Therapist Profile</p>
+        <h1 data-therapist-detail-title>Therapist Profile</h1>
+        <p class="lead compact" data-therapist-detail-subtitle>Loading therapist information...</p>
+      </div>
+    </section>
+
+    <section class="section hidden" data-therapist-detail-section>
+      <div class="container">
+        <div class="profile-page-layout">
+          <div class="profile-page-gallery" data-therapist-detail-gallery></div>
+          <div class="profile-page-copy">
+            <p class="therapist-meta" data-therapist-detail-meta></p>
+            <div class="profile-stat-list" data-therapist-detail-stats></div>
+            <p class="therapist-bio" data-therapist-detail-bio></p>
+            <div class="hero-actions">
+              <a class="button secondary" href="services_elite.html">Back To Services</a>
+              <a class="button primary" href="booking_elite.html">Book This Therapist</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section therapist-section" data-therapist-list-section>
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Therapists</p>
+          <h2>Available massage therapists</h2>
+          <p class="lead compact">Select a profile picture to view the therapist details and the full photo gallery.</p>
+        </div>
+        <div class="therapist-grid" data-therapist-grid></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <div>
+        <p class="notranslate" translate="no" data-business-name>Sensual Massage Elite</p>
+        <div class="social-links" data-social-links></div>
+      </div>
+      <div class="footer-links">
+        <a href="index_elite.html">Home</a>
+        <a href="services_elite.html">Services</a>
+        <a href="rates_elite.html">Rates</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="config.js?v=20260414r"></script>
+  <script src="script.js?v=20260414r"></script>
+  <script>
+    (function() {
+      const apiBaseUrl = (window.SITE_CONFIG && window.SITE_CONFIG.apiBaseUrl) || "";
+      const selectedBranchName = String(document.body && document.body.dataset && document.body.dataset.selectedBranch || "").trim();
+      const selectedBranchSlug = String(document.body && document.body.dataset && document.body.dataset.selectedBranchSlug || "").trim().toLowerCase();
+
+      function escapeHtml(value) {
+        return String(value || "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function escapeAttribute(value) {
+        return escapeHtml(value);
+      }
+
+      function extractDriveFileId(value) {
+        const trimmedValue = String(value || "").trim();
+        if (!trimmedValue) return "";
+
+        const driveFileMatch = trimmedValue.match(/drive\.google\.com\/file\/d\/([^/]+)/i);
+        if (driveFileMatch) return driveFileMatch[1];
+
+        const driveOpenMatch = trimmedValue.match(/[?&]id=([^&]+)/i);
+        if (trimmedValue.includes("drive.google.com") && driveOpenMatch) {
+          return driveOpenMatch[1];
+        }
+
+        return "";
+      }
+
+      function normalizeImageUrl(value) {
+        const trimmedValue = String(value || "").trim();
+        if (!trimmedValue) return "";
+
+        if (/^https?:\/\/drive\.google\.com\/thumbnail/i.test(trimmedValue)) {
+          const driveThumbnailId = extractDriveFileId(trimmedValue);
+          return driveThumbnailId
+            ? "https://drive.google.com/thumbnail?id=" + driveThumbnailId + "&sz=w1200"
+            : trimmedValue;
+        }
+
+        const driveFileId = extractDriveFileId(trimmedValue);
+        if (driveFileId) {
+          return "https://drive.google.com/thumbnail?id=" + driveFileId + "&sz=w1200";
+        }
+
+        return trimmedValue;
+      }
+
+      function buildDriveViewUrl(fileId) {
+        const normalized = String(fileId || "").trim();
+        return normalized ? "https://drive.google.com/uc?export=view&id=" + normalized : "";
+      }
+
+      function renderTherapistImage(imageUrl, altText, className) {
+        const normalizedUrl = String(imageUrl || "").trim();
+        const normalizedAlt = String(altText || "Therapist").trim();
+        const driveFileId = extractDriveFileId(normalizedUrl);
+        const fallbackUrl = driveFileId ? buildDriveViewUrl(driveFileId) : "";
+        const initials = getInitials(normalizedAlt);
+        const placeholderClass = className || "therapist-avatar";
+        const placeholderHtml = `<div class="${placeholderClass} therapist-avatar-placeholder">${escapeHtml(initials)}</div>`;
+        const errorHandler = fallbackUrl
+          ? `if(!this.dataset.fallbackApplied){this.dataset.fallbackApplied='true';this.src='${escapeAttribute(fallbackUrl)}';}else{this.onerror=null;this.outerHTML='${escapeAttribute(placeholderHtml)}';}`
+          : `this.onerror=null;this.outerHTML='${escapeAttribute(placeholderHtml)}';`;
+
+        return `<img${className ? ` class="${escapeAttribute(className)}"` : ""} src="${escapeAttribute(normalizedUrl)}" alt="${escapeAttribute(normalizedAlt)}" onerror="${errorHandler}">`;
+      }
+
+      function parseStaffImageUrls(value) {
+        return String(value || "")
+          .split(/\r?\n|,|;/)
+          .map((item) => normalizeImageUrl(item))
+          .filter(Boolean)
+          .slice(0, 10);
+      }
+
+      function getActiveRows(rows) {
+        return (rows || [])
+          .filter((row) => String(row.active || "TRUE").toUpperCase() === "TRUE")
+          .sort((a, b) => Number(a.__rowIndex || 0) - Number(b.__rowIndex || 0));
+      }
+
+      function getInitials(value) {
+        return String(value || "")
+          .split(/\s+/)
+          .filter(Boolean)
+          .slice(0, 2)
+          .map((part) => part.charAt(0).toUpperCase())
+          .join("") || "?";
+      }
+
+      function getBranchPagePath(baseName) {
+        return selectedBranchSlug ? (baseName + "_" + selectedBranchSlug + ".html") : (baseName + ".html");
+      }
+
+      function renderTherapistCard(staff) {
+        const name = String(staff.name || "").trim();
+        const role = String(staff.role || "").trim();
+        const specialty = String(staff.specialty || "").trim();
+        const branch = String(staff.branch || "").trim();
+        const imageUrl = parseStaffImageUrls(staff.image_urls)[0] || "";
+        const metaLine = [specialty || role, branch].filter(Boolean).join(" | ");
+
+        return `
+          <a class="therapist-profile therapist-profile-grid" href="${getBranchPagePath("therapist")}?name=${encodeURIComponent(name)}">
+            ${imageUrl
+              ? renderTherapistImage(imageUrl, name || "Therapist", "therapist-avatar")
+              : `<div class="therapist-avatar therapist-avatar-placeholder">${escapeHtml(getInitials(name))}</div>`}
+            <div class="therapist-body">
+              <h3>${escapeHtml(name || "Therapist")}</h3>
+              ${metaLine ? `<p class="therapist-meta">${escapeHtml(metaLine)}</p>` : ""}
+              <span class="therapist-more" aria-hidden="true">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 5c5.4 0 9.7 4.5 10.9 6-.2.3-.5.7-.9 1.2-1.7 2-5.3 6.8-10 6.8S3.7 14.2 2 12.2c-.4-.5-.7-.9-.9-1.2C2.3 9.5 6.6 5 12 5Zm0 2C8.3 7 5.1 9.7 3.4 11.5c1.7 1.8 4.9 4.5 8.6 4.5s6.9-2.7 8.6-4.5C18.9 9.7 15.7 7 12 7Zm0 1.8A3.2 3.2 0 1 1 8.8 12 3.2 3.2 0 0 1 12 8.8Zm0 2A1.2 1.2 0 1 0 13.2 12 1.2 1.2 0 0 0 12 10.8Z"/></svg>
+              </span>
+            </div>
+          </a>
+        `;
+      }
+
+      function renderTherapistGroup(title, rows) {
+        if (!rows.length) {
+          return "";
+        }
+
+        return `
+          <article class="therapist-card">
+            <p class="therapist-type">${escapeHtml(title)}</p>
+            <div class="therapist-list therapist-list-grid">${rows.map(renderTherapistCard).join("")}</div>
+          </article>
+        `;
+      }
+
+      function normalizeBranchName(value) {
+        return String(value || "").trim().toLowerCase();
+      }
+
+      function isSameBranch(value, target) {
+        return normalizeBranchName(value) === normalizeBranchName(target);
+      }
+
+      function getOrderedBranchNames(branches, staffRows) {
+        const orderedNames = [];
+        const seen = new Set();
+
+        getActiveRows(branches || []).forEach((branch) => {
+          const name = String(branch.name || "").trim();
+          const normalized = normalizeBranchName(name);
+
+          if (normalized && !seen.has(normalized)) {
+            seen.add(normalized);
+            orderedNames.push(name);
+          }
+        });
+
+        (staffRows || []).forEach((staff) => {
+          const name = String(staff.branch || "").trim();
+          const normalized = normalizeBranchName(name);
+
+          if (normalized && !seen.has(normalized)) {
+            seen.add(normalized);
+            orderedNames.push(name);
+          }
+        });
+
+        return orderedNames;
+      }
+
+      function filterRowsByBranch(rows, branchName, includeBlankBranch) {
+        return getActiveRows(rows || []).filter((row) => {
+          const rowBranch = String(row.branch || "").trim();
+
+          if (!rowBranch) {
+            return !!includeBlankBranch;
+          }
+
+          return isSameBranch(rowBranch, branchName);
+        });
+      }
+
+      function renderTherapistList(staffRows, branchRows) {
+        const grid = document.querySelector("[data-therapist-grid]");
+        if (!grid) return;
+
+        const markup = getOrderedBranchNames(branchRows, staffRows).map((branchName) => {
+          const branchStaff = staffRows.filter((staff) => isSameBranch(staff.branch, branchName));
+          const femaleRows = branchStaff.filter((staff) => String(staff.gender || "").trim().toLowerCase() === "female");
+          const maleRows = branchStaff.filter((staff) => String(staff.gender || "").trim().toLowerCase() === "male");
+          const groups = [
+            renderTherapistGroup("Female Therapists", femaleRows),
+            renderTherapistGroup("Male Therapists", maleRows)
+          ].filter(Boolean).join("");
+
+          if (!groups) {
+            return "";
+          }
+
+          return `
+            <section class="branch-therapist-section">
+              <div class="branch-therapist-heading">
+                <p class="eyebrow">Branch</p>
+                <h3>${escapeHtml(branchName || "Therapists")}</h3>
+              </div>
+              <div class="therapist-grid">${groups}</div>
+            </section>
+          `;
+        }).filter(Boolean).join("");
+
+        grid.innerHTML = markup || '<div class="service-note"><p>No therapists available yet.</p></div>';
+      }
+
+      function renderTherapistDetail(staff) {
+        const detailSection = document.querySelector("[data-therapist-detail-section]");
+        const titleNode = document.querySelector("[data-therapist-detail-title]");
+        const subtitleNode = document.querySelector("[data-therapist-detail-subtitle]");
+        const galleryNode = document.querySelector("[data-therapist-detail-gallery]");
+        const statsNode = document.querySelector("[data-therapist-detail-stats]");
+        const metaNode = document.querySelector("[data-therapist-detail-meta]");
+        const bioNode = document.querySelector("[data-therapist-detail-bio]");
+
+        const name = String(staff.name || "").trim();
+        const gender = String(staff.gender || "").trim();
+        const role = String(staff.role || "").trim();
+        const specialty = String(staff.specialty || "").trim();
+        const branch = String(staff.branch || "").trim();
+        const age = String(staff.age || "").trim();
+        const height = String(staff.height || "").trim();
+        const weight = String(staff.weight || "").trim();
+        const bio = String(staff.bio || "").trim();
+        const images = parseStaffImageUrls(staff.image_urls);
+
+        if (detailSection) detailSection.classList.remove("hidden");
+        if (titleNode) titleNode.textContent = name || "Therapist";
+        if (subtitleNode) subtitleNode.textContent = gender ? gender + " therapist profile" : "Therapist profile";
+        if (metaNode) metaNode.textContent = [specialty || role, branch].filter(Boolean).join(" | ");
+        if (bioNode) bioNode.textContent = bio || "";
+        if (galleryNode) {
+          galleryNode.innerHTML = images.length
+            ? images.map((image, index) => renderTherapistImage(image, (name || "Therapist") + " photo " + (index + 1), "")).join("")
+            : `<div class="therapist-avatar therapist-avatar-placeholder">${escapeHtml(getInitials(name))}</div>`;
+        }
+        if (statsNode) {
+          const statItems = [
+            age ? { label: "Age", value: age } : null,
+            height ? { label: "Height", value: height } : null,
+            weight ? { label: "Weight", value: weight } : null
+          ].filter(Boolean);
+
+          statsNode.innerHTML = statItems.map((item) => `
+            <div class="profile-stat">
+              <span>${escapeHtml(item.label)}</span>
+              <strong>${escapeHtml(item.value)}</strong>
+            </div>
+          `).join("");
+        }
+      }
+
+      async function initTherapistPage() {
+        if (!apiBaseUrl) return;
+
+        try {
+          const response = await fetch(apiBaseUrl + "?action=siteData");
+          const result = await response.json();
+          if (!response.ok || !result.success) return;
+
+          let staffRows = getActiveRows((result.data && result.data.staff) || []);
+          let branchRows = getActiveRows((result.data && result.data.branches) || []);
+
+          if (selectedBranchName) {
+            staffRows = filterRowsByBranch(staffRows, selectedBranchName, false);
+            branchRows = branchRows.filter((branch) => isSameBranch(branch.name, selectedBranchName));
+          }
+
+          renderTherapistList(staffRows, branchRows);
+
+          const requestedName = String(new URLSearchParams(window.location.search).get("name") || "").trim().toLowerCase();
+          if (!requestedName) {
+            const titleNode = document.querySelector("[data-therapist-detail-title]");
+            const subtitleNode = document.querySelector("[data-therapist-detail-subtitle]");
+            if (titleNode) titleNode.textContent = "Browse our available massage therapists.";
+            if (subtitleNode) subtitleNode.textContent = "Select a therapist profile below to open the full profile page.";
+            return;
+          }
+
+          const staff = staffRows.find((item) => String(item.name || "").trim().toLowerCase() === requestedName);
+          if (staff) {
+            renderTherapistDetail(staff);
+          }
+        } catch (error) {
+          console.warn("Therapist page failed to load.", error);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", initTherapistPage);
+    })();
+  </script>
+</body>
+</html>
